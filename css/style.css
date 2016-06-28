@@ -1,0 +1,54 @@
+body {
+	background-color: #f0f0f0;
+	font-family: Helvetica, Arial;
+}
+a {
+	text-decoration: none;
+}
+h1, hr {
+	margin: 0;
+}
+#container {
+	background-color: white;
+	width: 800px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#header {
+	background-color: #c5d5c5;
+	color: #003333;
+}
+#actionheadline {
+	background-color: #f0f0f0;
+}
+#line {
+    noshade width:75%; size: 2px;
+}
+#content {
+	background-color: white;
+	padding: 10px;
+}
+#nav {
+	background-color: #f0f0f0;
+	width: 180px;
+	float: left;
+}
+#nav ul {
+	list-style-type: none;
+	padding: 0;
+}
+#nav.selected {
+	font-weight: bold;
+	color: red;
+}
+#main {
+	background-color: #CCCCFF;
+	width: 600px;
+	float: right;
+}
+#footer {
+	background-color: #f0f0f0;
+	clear: both;
+	padding: 10px;
+	text-align: right;
+}

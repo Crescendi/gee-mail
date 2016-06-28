@@ -1,7 +1,9 @@
+<!DOCTYPE html >
+
 <html>
 	<head>
 		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" media="screen">
+		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
@@ -9,10 +11,38 @@
         
       };
     </script>
+    <title> Gee Mail</title>
 	</head>
 	<body>
-		<div class="container" id="main">
-			Build Me!
+		<div id="container">
+			<div id="header">
+				<h1> GEE MAIL</h1>
+
+			</div>
+			<hr>
+			<div id="actionheadline">
+				COMPOSE and action buttons
+			</div>
+			<hr id=line /> 
+			<div id="content">
+				<div id="nav">
+					<ul>
+						<li><a class="selected" href="">Inbox</a></li>
+						<li><a href="">Important</a></li>
+						<li><a href="">Sent</a></li>
+						<li><a href="">Drafts</a></li>
+						<li><a href="">Deleted</a></li>
+					</ul>
+				</div>
+				<div id="main">
+					<p>email list as a table</p>
+					<p>row1<br>row2<br>row3<br></p>
+				</div>	
+			</div>
+			<hr>
+			<div id="footer">
+				Copyright &copy; 2016
+			</div>
 		</div>
 	</body>
 </html>
