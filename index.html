@@ -5,10 +5,126 @@
 		<meta charset="utf-8">
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+
+        // run over the geemails array which has object elements with sender, subject date properties and string values
+        // a) cretae rows of emails: create a new node-div w classname-clEmailRow, and 
+        // b) inside the div create three new node-p w classnames for sender, subject and date separately 
+        // c) set three variable for geting the strings value from the object's tsender, subject and date properties of geemails array at the current position 
+        // d) cut off the time,GMT, etc part of the date 
+        // e) append the strings held by addSender, addSubject and addDate variables into the appropriate p nodes and append the p nodes into the emailRow div 
+        // f) append the emailRows div at the end of the main div of the HTML
+
+        for (var i = 0; i < geemails.length; i++) {
+
+        	var emailRow = document.createElement('div');
+        	emailRow.className = "clEmailRow";
+
+        	var emailRowBox1 = document.createElement('p');
+        	emailRowBox1.className = "clSender";
+
+        	var emailRowBox2 = document.createElement('p');
+        	emailRowBox2.className = "clSubject";
+
+        	var emailRowBox3 = document.createElement('p');
+        	emailRowBox3.className = "clDate";
+
+
+        	var addSender = document.createTextNode(geemails[i].sender);
+        	var addSubject = document.createTextNode(geemails[i].subject);
+        	var addDate = document.createTextNode(geemails[i].date.toDateString());
+
+        	// emailRow.appendChild(emailRowBox1.appendChild(addSender));
+        	// emailRow.appendChild(emailRowBox2.appendChild(addSubject));
+        	// emailRow.appendChild(emailRowBox3.appendChild(addDate));
+
+        	emailRowBox1.appendChild(addSender);
+        	emailRowBox2.appendChild(addSubject);
+        	emailRowBox3.appendChild(addDate);
+        	emailRow.appendChild(emailRowBox1);
+        	emailRow.appendChild(emailRowBox2);
+        	emailRow.appendChild(emailRowBox3);
+
+        	main.appendChild(emailRow);
+
+        	//console.log(geemails);
+        	console.log(emailRow);
+        	
+        }
+
+        // styling emailRows div by using classname
+        // 
+        var x = document.getElementsByClassName("clEmailRow");
+        var numberOfEmails = x.length;
+        //console.log(numberOfEmails);
+
+        for (var i = 0; i < x.length; i++) {
+
+        	//x[i].style.padding = "10px";
+        	//x[i].style.borderTop = "2px dotted gray";
+        	//x[i].style.display = "inline";
+        	x[i].style.width = "100%";
+        	x[i].style.float = "left";
+
+        	if (i%2 === 0) {
+
+        		x[i].style.backgroundColor = "#f0f0f0";
+
+        	}else{
+
+        		x[i].style.backgroundColor = "white";
+        	}
+
+        	if (i === (x.length-1)) {
+        		x[i].style.borderBottom = "2px  solid black";
+        	}
+        }
+
+
+       
+
+// button into the actionHeader
+	var composeButton = document.createElement('button');
+		composeButton.id = "compButton";
+	var buttonText = document.createTextNode("COMPOSE");
+		composeButton.appendChild(buttonText);
+		actionHeader.appendChild(composeButton);
+
+// dynamic styling 
+		var buttonStyle = document.createElement('style');
+		buttonStyle.type = "text/css";
+		buttonStyle.innerHTML = "#compButton {background-color: crimson; color: white; font-size: 14px; padding: 10px}";
+		document.getElementsByTagName("head")[0].appendChild(buttonStyle);
+
+// horizontal line
+		var hLine = document.createElement('div');
+		hLine.id = "line";
+		hLine.innerHTML = "";
+		actionHeader.appendChild(hLine);
+
+
+// create nav list with a tag 
+		var navigationMenu = [{type: "href", link: "", text:"Inbox"},{type: "href", link: "", text:"Important"},{type: "href", link: "", text:"Sent"},{type: "href", link: "", text:"Drafts"},{type: "href", link: "", text:"Deleted"}];
+		for (var i = 0; i < navigationMenu.length; i++) {
+			var navList = document.createElement('li');
+			navList.className = "navigationList";
+			var xAtag = document.createElement('a');
+			xAtag.setAttribute(navigationMenu[i].type, navigationMenu[i].link);
+			xAtag.innerHTML = navigationMenu[i].text;
+			// navList.innerHTML = navigationMenu[i];  if list is not a link
+			navList.appendChild(xAtag);
+			nav.appendChild(navList);
+		}
+
+
+// footer div
+
+
         
       };
     </script>
@@ -17,24 +133,20 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<h1> GEE MAIL</h1>
+				<!-- <img id="logo" src="images/logogee3.png" alt="geemail"> -->
+				<img id="toppic" src="images/pokemon1.png" alt="source:devianart.com">
+				<h1 > geeMail</h1>
+			</div> <!-- eof header -->
+			
+			<div id="actionHeader">
+				
+			</div> <!-- eof actionHeadLine -->
 
-			</div>
-			<hr>
-			<div id="actionheadline">
-				COMPOSE and action buttons
-			</div>
-			<hr id=line /> 
 			<div id="content">
 				<div id="nav">
-					<ul>
-						<li><a class="selected" href="">Inbox</a></li>
-						<li><a href="">Important</a></li>
-						<li><a href="">Sent</a></li>
-						<li><a href="">Drafts</a></li>
-						<li><a href="">Deleted</a></li>
-					</ul>
-				</div>
+					
+				</div> <!-- eof nav -->
+
 				<div id="main">
 					<table id="table">
 					<tr>
