@@ -27,18 +27,18 @@ th, td {
 	color: yellow; /* #003333 */
 	height: 150px;
 }
-#logo {
+/* #logo {
 	position: absolute;
 	width: 100px;
 	height: 74px;
-	/* z-index: -1; */
-}
+} */
 h1 {
 	position: relative;
 	top: 60px;
-	left: 20px;
-	font-family: 'Chewy', cursive;
+	left: 30px;
 	display: inline;
+	font-family: 'Fredericka the Great', cursive;
+	font-weight: 400;
 }
 #toppic {
 	float: right;
@@ -55,8 +55,6 @@ h1 {
 }
 
 
-
-
 #content {
 	background-color: white;
 	padding: 10px;
@@ -69,12 +67,8 @@ h1 {
 }
 .navigationList {
 	list-style-type: none;
-	padding: 0;
+	padding: 5px;
 }
-/*#nav.selected {
-	font-weight: bold;
-	color: red;
-}*/
 
 
 #main {
@@ -111,6 +105,5 @@ h1 {
 #footer {
 	background-color: #f0f0f0;
 	clear: both;
-	padding: 10px;
-	text-align: right;
+	text-align: center;
 }

@@ -6,7 +6,7 @@
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-		<link href='https://fonts.googleapis.com/css?family=Chewy' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700|Fredericka+the+Great' rel='stylesheet' type='text/css'>
     <script>
       window.onload = function(){
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
@@ -39,10 +39,6 @@
         	var addSubject = document.createTextNode(geemails[i].subject);
         	var addDate = document.createTextNode(geemails[i].date.toDateString());
 
-        	// emailRow.appendChild(emailRowBox1.appendChild(addSender));
-        	// emailRow.appendChild(emailRowBox2.appendChild(addSubject));
-        	// emailRow.appendChild(emailRowBox3.appendChild(addDate));
-
         	emailRowBox1.appendChild(addSender);
         	emailRowBox2.appendChild(addSubject);
         	emailRowBox3.appendChild(addDate);
@@ -52,13 +48,12 @@
 
         	main.appendChild(emailRow);
 
-        	//console.log(geemails);
-        	console.log(emailRow);
-        	
+        	console.log(geemails);
+        	console.log(emailRow);	
         }
 
-        // styling emailRows div by using classname
-        // 
+ // styling emailRows div by using classname
+ 
         var x = document.getElementsByClassName("clEmailRow");
         var numberOfEmails = x.length;
         //console.log(numberOfEmails);
@@ -72,21 +67,15 @@
         	x[i].style.float = "left";
 
         	if (i%2 === 0) {
-
         		x[i].style.backgroundColor = "#f0f0f0";
-
         	}else{
-
         		x[i].style.backgroundColor = "white";
         	}
 
-        	if (i === (x.length-1)) {
-        		x[i].style.borderBottom = "2px  solid black";
-        	}
+        	//if (i === (x.length-1)) {
+        	//	x[i].style.borderBottom = "2px  solid black";
+        	//}
         }
-
-
-       
 
 // button into the actionHeader
 	var composeButton = document.createElement('button');
@@ -106,25 +95,41 @@
 		hLine.id = "line";
 		hLine.innerHTML = "";
 		actionHeader.appendChild(hLine);
+		//footer.appendChild(hLine);
 
 
-// create nav list with a tag 
+// create nav list with a tag and show number of emails after Inbox
 		var navigationMenu = [{type: "href", link: "", text:"Inbox"},{type: "href", link: "", text:"Important"},{type: "href", link: "", text:"Sent"},{type: "href", link: "", text:"Drafts"},{type: "href", link: "", text:"Deleted"}];
 		for (var i = 0; i < navigationMenu.length; i++) {
 			var navList = document.createElement('li');
 			navList.className = "navigationList";
 			var xAtag = document.createElement('a');
 			xAtag.setAttribute(navigationMenu[i].type, navigationMenu[i].link);
-			xAtag.innerHTML = navigationMenu[i].text;
+			if (i===0) {
+				xAtag.innerHTML = navigationMenu[i].text + " ( " + numberOfEmails + " )";
+			}else{
+				xAtag.innerHTML = navigationMenu[i].text;
+
+			}			
 			// navList.innerHTML = navigationMenu[i];  if list is not a link
 			navList.appendChild(xAtag);
 			nav.appendChild(navList);
 		}
+		console.log(nav);
 
 
 // footer div
+		var hLine2 = document.createElement('div');
+		hLine2.id = "line";
+		hLine.innerHTML = "";
+		footer.appendChild(hLine2);
 
+		var copyRight = document.createElement('p');
+		copyRight.id = "cprText";
+		copyRight.innerHTML = "Copyright &copy; 2016";
+		footer.appendChild(copyRight);
 
+// 
         
       };
     </script>
@@ -134,17 +139,16 @@
 		<div id="container">
 			<div id="header">
 				<!-- <img id="logo" src="images/logogee3.png" alt="geemail"> -->
-				<img id="toppic" src="images/pokemon1.png" alt="source:devianart.com">
-				<h1 > geeMail</h1>
+				<img id="toppic" src="images/pokemon1.png" alt="geemail" title="source:devianart.com">
+				<h1 > g e e <span style="color:red">M</span> a i l</h1>
 			</div> <!-- eof header -->
 			
-			<div id="actionHeader">
-				
+			<div id="actionHeader">	
 			</div> <!-- eof actionHeadLine -->
 
 			<div id="content">
+
 				<div id="nav">
-					
 				</div> <!-- eof nav -->
 
 				<div id="main">
@@ -164,18 +168,14 @@
 				        <td>My appreciation for our lovely conversation</td>
 				        <td>April 10</td>
 				    </tr>				    
-				    <tr>
-				        <td>Bender Bender</td>
-				        <td>Küldés: My Flight Confirmation - Hawaiian Airlines.pdf, HA-Request-Unaccompanied-Minors.pdf</td>
-				        <td>January 31</td>
-				    </tr>
+				    
 				</table>
-				</div>	
-			</div>
-			<hr>
+				</div> <!-- eof main -->	
+			</div> <!-- eof content -->
+
 			<div id="footer">
-				Copyright &copy; 2016
-			</div>
-		</div>
+			</div> <!-- eof footer -->
+
+		</div> <!-- eof container -->
 	</body>
 </html>
