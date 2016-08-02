@@ -20,38 +20,48 @@
         // e) append the strings held by addSender, addSubject and addDate variables into the appropriate p nodes and append the p nodes into the emailRow div 
         // f) append the emailRows div at the end of the main div of the HTML
 
+console.log("window.geemails", window.geemails);
         for (var i = 0; i < geemails.length; i++) {
 
         	var emailRow = document.createElement('div');
         	emailRow.className = "clEmailRow";
 
-        	var emailRowBox1 = document.createElement('p');
+        	var emailRowBox1 = document.createElement('div');
         	emailRowBox1.className = "clSender";
 
-        	var emailRowBox2 = document.createElement('p');
+        	var emailRowBox2 = document.createElement('div');
         	emailRowBox2.className = "clSubject";
 
-        	var emailRowBox3 = document.createElement('p');
+        	var emailRowBox3 = document.createElement('div');
         	emailRowBox3.className = "clDate";
 
+        	var emailRowBox4 = document.createElement('div');
+        	emailRowBox4.className = "clBody";
 
-        	var addSender = document.createTextNode(geemails[i].sender);
+
+        	//var addSender = document.createTextNode(geemails[i].sender);
+        	emailRowBox1.innerHTML = geemails[i].sender;
         	var addSubject = document.createTextNode(geemails[i].subject);
         	var addDate = document.createTextNode(geemails[i].date.toDateString());
+        	var addBody = document.createTextNode(geemails[i].body);
 
-        	emailRowBox1.appendChild(addSender);
+        	//emailRowBox1.appendChild(addSender);
         	emailRowBox2.appendChild(addSubject);
         	emailRowBox3.appendChild(addDate);
+        	emailRowBox4.appendChild(addBody);
+
+        	emailRowBox2.appendChild(emailRowBox4); //a subject div ala van berakva a body
         	emailRow.appendChild(emailRowBox1);
         	emailRow.appendChild(emailRowBox2);
         	emailRow.appendChild(emailRowBox3);
+        	
 
         	main.appendChild(emailRow);
 
         	console.log(geemails);
-        	console.log(emailRow);	
+        	console.log(emailRow);
         }
-
+        
  // styling emailRows div by using classname
  
         var x = document.getElementsByClassName("clEmailRow");
@@ -59,23 +69,12 @@
         //console.log(numberOfEmails);
 
         for (var i = 0; i < x.length; i++) {
-
-        	//x[i].style.padding = "10px";
-        	//x[i].style.borderTop = "2px dotted gray";
-        	//x[i].style.display = "inline";
-        	x[i].style.width = "100%";
-        	x[i].style.float = "left";
-
         	if (i%2 === 0) {
         		x[i].style.backgroundColor = "#f0f0f0";
         	}else{
         		x[i].style.backgroundColor = "white";
         	}
-
-        	//if (i === (x.length-1)) {
-        	//	x[i].style.borderBottom = "2px  solid black";
-        	//}
-        }
+        } //close of l70
 
 // button into the actionHeader
 	var composeButton = document.createElement('button');
@@ -95,7 +94,6 @@
 		hLine.id = "line";
 		hLine.innerHTML = "";
 		actionHeader.appendChild(hLine);
-		//footer.appendChild(hLine);
 
 
 // create nav list with a tag and show number of emails after Inbox
@@ -113,9 +111,9 @@
 			}			
 			// navList.innerHTML = navigationMenu[i];  if list is not a link
 			navList.appendChild(xAtag);
-			nav.appendChild(navList);
+			navigation.appendChild(navList);
 		}
-		console.log(nav);
+		console.log(navigation);
 
 
 // footer div
@@ -129,7 +127,33 @@
 		copyRight.innerHTML = "Copyright &copy; 2016";
 		footer.appendChild(copyRight);
 
+// click on button
+		document.getElementById("compButton").onclick = function() {composeNewMail()};
+		function composeNewMail(){
+			document.getElementById("compButton").innerHTML = "New Mail!";
+			//document.getElementById("compButton").style.border = "3px solid white";
+		}
+
+// click on Sender to show Body
+		var classOfSubjects = [];
+		classOfSubjects = document.getElementsByClassName("clSubject");
+		console.log("class of subject",classOfSubjects);
+		for (var i = 0; i < classOfSubjects.length; i++) {
+		 	classOfSubjects[i].addEventListener("click",showEmailBody);
+		}
+	
+		function showEmailBody(){
+			var showBody = this.querySelectorAll('.clBody')[0];
+			console.log("showbody by querySelectorAll",showBody);
+			  if(showBody.style.display === 'none'){
+			    showBody.style.display = "block";
+			  }else{
+			    showBody.style.display = "none";
+			  }
+		}
 // 
+
+
         
       };
     </script>
@@ -138,9 +162,8 @@
 	<body>
 		<div id="container">
 			<div id="header">
-				<!-- <img id="logo" src="images/logogee3.png" alt="geemail"> -->
 				<img id="toppic" src="images/pokemon1.png" alt="geemail" title="source:devianart.com">
-				<h1 > g e e <span style="color:red">M</span> a i l</h1>
+				<h1 > G E E <span style="color:red">m</span> A I L</h1>
 			</div> <!-- eof header -->
 			
 			<div id="actionHeader">	
@@ -148,28 +171,11 @@
 
 			<div id="content">
 
-				<div id="nav">
+				<div id="navigation">
 				</div> <!-- eof nav -->
 
 				<div id="main">
-					<table id="table">
-					<tr>
-        				<td>Kornelia, me, Janos</td>
-        				<td>Re: Phone bill for May and June</td>
-        				<td>10:35am</td>
-      				</tr>    
-				    <tr>
-				    	<td>Glassdoor</td>
-				        <td>Now Hiring: Kamehameha Schools, Hawaii State Federal Credit Union and First Hawaiian Bank</td>
-				        <td>Yesterday</td>
-				    </tr>
-				    <tr>
-				        <td>Friend</td>
-				        <td>My appreciation for our lovely conversation</td>
-				        <td>April 10</td>
-				    </tr>				    
-				    
-				</table>
+				
 				</div> <!-- eof main -->	
 			</div> <!-- eof content -->
 
