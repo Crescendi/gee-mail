@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="utf-8">
 		<script src="js/mail-generator.js"></script>
-		<link href="css/style.css" rel="stylesheet" type="text/css" media="screen">
+		<link href="css/styles.css" rel="stylesheet" type="text/css" media="screen">
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Cabin+Sketch:400,700|Fredericka+the+Great' rel='stylesheet' type='text/css'>
     <script>
@@ -21,7 +21,7 @@
         // f) append the emailRows div at the end of the main div of the HTML
 
 console.log("window.geemails", window.geemails);
-        for (var i = 0; i < geemails.length; i++) {
+        for (var i = 0; i < window.geemails.length; i++) {
 
         	var emailRow = document.createElement('div');
         	emailRow.className = "clEmailRow";
@@ -40,10 +40,10 @@ console.log("window.geemails", window.geemails);
 
 
         	//var addSender = document.createTextNode(geemails[i].sender);
-        	emailRowBox1.innerHTML = geemails[i].sender;
-        	var addSubject = document.createTextNode(geemails[i].subject);
-        	var addDate = document.createTextNode(geemails[i].date.toDateString());
-        	var addBody = document.createTextNode(geemails[i].body);
+        	emailRowBox1.innerHTML = window.geemails[i].sender;
+        	var addSubject = document.createTextNode(window.geemails[i].subject);
+        	var addDate = document.createTextNode(window.geemails[i].date.toDateString());
+        	var addBody = document.createTextNode(window.geemails[i].body);
 
         	//emailRowBox1.appendChild(addSender);
         	emailRowBox2.appendChild(addSubject);
@@ -58,10 +58,10 @@ console.log("window.geemails", window.geemails);
 
         	main.appendChild(emailRow);
 
-        	console.log(geemails);
+        	console.log(window.geemails);
         	console.log(emailRow);
         }
-        
+
  // styling emailRows div by using classname
  
         var x = document.getElementsByClassName("clEmailRow");
@@ -151,7 +151,28 @@ console.log("window.geemails", window.geemails);
 			    showBody.style.display = "none";
 			  }
 		}
-// 
+// generate new message and push it to the geemails array
+		
+//		function addNewMessage() {
+// 		  	var newMessage = {};
+//  		  	newMessage = getNewMessage();
+//  		  	window.geemails.push(newMessage);
+///		}
+//		setInterval(addNewMessage,3000);
+		function addNewMessage() {
+			var newMessage = getNewMessage();
+			console.log("new message", newMessage);
+			window.geemails.push(newMessage);
+			console.log("window.geemails", window.geemails);
+		}
+		var myVar = setInterval(addNewMessage, 2000);
+
+		document.getElementById("stop").onclick = stopAddingEmail;
+		
+		function stopAddingEmail() {
+			clearInterval(myVar);
+		}
+
 
 
         
@@ -167,6 +188,8 @@ console.log("window.geemails", window.geemails);
 			</div> <!-- eof header -->
 			
 			<div id="actionHeader">	
+					<!-- <button onclick="clearInterval(myVar)">Stop time</button> -->
+					 <button id="stop">Stop setInterval</button>
 			</div> <!-- eof actionHeadLine -->
 
 			<div id="content">
