@@ -12,69 +12,6 @@
         // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
         // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
 
-        // run over the geemails array which has object elements with sender, subject date properties and string values
-        // a) cretae rows of emails: create a new node-div w classname-clEmailRow, and 
-        // b) inside the div create three new node-p w classnames for sender, subject and date separately 
-        // c) set three variable for geting the strings value from the object's tsender, subject and date properties of geemails array at the current position 
-        // d) cut off the time,GMT, etc part of the date 
-        // e) append the strings held by addSender, addSubject and addDate variables into the appropriate p nodes and append the p nodes into the emailRow div 
-        // f) append the emailRows div at the end of the main div of the HTML
-
-console.log("window.geemails", window.geemails);
-        for (var i = 0; i < window.geemails.length; i++) {
-
-        	var emailRow = document.createElement('div');
-        	emailRow.className = "clEmailRow";
-
-        	var emailRowBox1 = document.createElement('div');
-        	emailRowBox1.className = "clSender";
-
-        	var emailRowBox2 = document.createElement('div');
-        	emailRowBox2.className = "clSubject";
-
-        	var emailRowBox3 = document.createElement('div');
-        	emailRowBox3.className = "clDate";
-
-        	var emailRowBox4 = document.createElement('div');
-        	emailRowBox4.className = "clBody";
-
-
-        	//var addSender = document.createTextNode(geemails[i].sender);
-        	emailRowBox1.innerHTML = window.geemails[i].sender;
-        	var addSubject = document.createTextNode(window.geemails[i].subject);
-        	var addDate = document.createTextNode(window.geemails[i].date.toDateString());
-        	var addBody = document.createTextNode(window.geemails[i].body);
-
-        	//emailRowBox1.appendChild(addSender);
-        	emailRowBox2.appendChild(addSubject);
-        	emailRowBox3.appendChild(addDate);
-        	emailRowBox4.appendChild(addBody);
-
-        	emailRowBox2.appendChild(emailRowBox4); //a subject div ala van berakva a body
-        	emailRow.appendChild(emailRowBox1);
-        	emailRow.appendChild(emailRowBox2);
-        	emailRow.appendChild(emailRowBox3);
-        	
-
-        	main.appendChild(emailRow);
-
-        	console.log(window.geemails);
-        	console.log(emailRow);
-        }
-
- // styling emailRows div by using classname
- 
-        var x = document.getElementsByClassName("clEmailRow");
-        var numberOfEmails = x.length;
-        //console.log(numberOfEmails);
-
-        for (var i = 0; i < x.length; i++) {
-        	if (i%2 === 0) {
-        		x[i].style.backgroundColor = "#f0f0f0";
-        	}else{
-        		x[i].style.backgroundColor = "white";
-        	}
-        } //close of l70
 
 // button into the actionHeader
 	var composeButton = document.createElement('button');
@@ -104,17 +41,14 @@ console.log("window.geemails", window.geemails);
 			var xAtag = document.createElement('a');
 			xAtag.setAttribute(navigationMenu[i].type, navigationMenu[i].link);
 			if (i===0) {
-				xAtag.innerHTML = navigationMenu[i].text + " ( " + numberOfEmails + " )";
+				xAtag.innerHTML = navigationMenu[i].text + " ( " + geemails.length + " )";
 			}else{
 				xAtag.innerHTML = navigationMenu[i].text;
-
 			}			
-			// navList.innerHTML = navigationMenu[i];  if list is not a link
 			navList.appendChild(xAtag);
 			navigation.appendChild(navList);
 		}
-		console.log(navigation);
-
+		//console.log(navigation);
 
 // footer div
 		var hLine2 = document.createElement('div');
@@ -127,56 +61,129 @@ console.log("window.geemails", window.geemails);
 		copyRight.innerHTML = "Copyright &copy; 2016";
 		footer.appendChild(copyRight);
 
+
+// run over the geemails array which has object elements with sender, subject date properties and string values
+// a) cretae rows of emails: create a new node-div w classname-clEmailRow, and 
+// b) inside the div create three new node-p w classnames for sender, subject and date separately 
+// c) set three variable for geting the strings value from the object's tsender, subject aproperties of geemails array at the current position 
+// d) cut off the time,GMT, etc part of the date 
+// e) append the strings held by addSender, addSubject and addDate variables into the appropriate p nodes and append the p nodes into the emailRow div 
+// f) append the emailRows div at the end of the main div of the HTML
+
+//console.log("geemails", geemails);
+
+        function createEmailRow(inputObject) {	
+        	var emailRow = document.createElement('div');
+        		emailRow.className = "clEmailRow";
+
+        	var emailRowBox1 = document.createElement('div');
+        		emailRowBox1.className = "clSender";
+
+        	var emailRowBox2 = document.createElement('div');
+        		emailRowBox2.className = "clSubject";
+
+        	var emailRowBox3 = document.createElement('div');
+        		emailRowBox3.className = "clDate";
+
+        	var emailRowBox4 = document.createElement('div');
+        		emailRowBox4.className = "clBody";
+
+        	emailRowBox1.innerHTML = inputObject.sender;
+        	emailRowBox2.innerHTML = inputObject.subject;
+        	emailRowBox3.innerHTML = inputObject.date.toDateString();
+        	emailRowBox4.innerHTML = inputObject.body; 
+
+        	emailRow.appendChild(emailRowBox1);
+        	emailRow.appendChild(emailRowBox2);
+        	emailRow.appendChild(emailRowBox3);
+        	emailRow.appendChild(emailRowBox4);
+        	
+        	main.appendChild(emailRow);
+
+        	//console.log(emailRow);
+
+        } // eof createEmailRow function
+
+ // create emailRows from initial window.gemails object
+    	for (var i = 0; i < geemails.length; i++) {
+    		createEmailRow(geemails[i]);	
+ 	// styling emailRows div by using classname
+    		var x = document.getElementsByClassName("clEmailRow");
+    		if (i%2 === 0) {
+        		x[i].style.backgroundColor = "#f0f0f0";
+        	}else{
+        		x[i].style.backgroundColor = "white";
+        	}
+        } // eof creating initial email rows
+
+
+// generate new message and push it to the geemails array		
+		var myVar = setInterval(addNewMessage, 2000);
+		
+		function addNewMessage() {
+			var newMessage = getNewMessage();
+			//console.log("new message", newMessage);
+			geemails.push(newMessage);
+			//console.log("geemails", geemails);
+			createEmailRow(newMessage);
+	// updating number of email in the Index box
+			var numberOfEmails = geemails.length;
+			//console.log("number",numberOfEmails);
+			var newNumber = document.getElementsByTagName("a");
+			//console.log("index a tag", newNumber[0]);
+			newNumber[0].innerHTML = navigationMenu[0].text + " ( " + numberOfEmails + " )";
+	// add eventlistener to the email rows
+			var classOfEmails = [];
+			classOfEmails = document.getElementsByClassName("clEmailRow");
+			//console.log("class of Emails",classOfEmails);
+			for (var i = 0; i < classOfEmails.length; i++) {
+		 		// coloring of new emailRow
+		 		if (i%2 === 0) {
+        			classOfEmails[i].style.backgroundColor = "#f0f0f0";
+        		}else{
+        			classOfEmails[i].style.backgroundColor = "white";
+        		}
+
+        		classOfEmails[i].addEventListener("click",showEmailBody);
+        		classOfEmails[i].addEventListener("click",redSubject);
+
+			}
+		} // eof addNewMessage
+		
+// click on emailRow to show Body		
+		function showEmailBody(){
+			var showBody = this.querySelectorAll('.clBody')[0];
+			//console.log("showbody by querySelectorAll",showBody);
+			  if(showBody.style.display === 'none'){
+			    showBody.style.display = "block";  
+			  }else{
+			    showBody.style.display = "none";
+			  }  
+		} // eof showBody
+// click on emailRow change the Subject color to red		
+		function redSubject(){
+			var actSubject = this.querySelectorAll('.clSubject')[0];
+			//console.log("Actual Subject",actSubject);
+			  if(actSubject.style.color === 'black'){
+			    actSubject.style.color = "red";  
+			  }else{
+			    actSubject.style.color = "black";
+			  }  
+		} // eof redSubject
+
+
 // click on button
 		document.getElementById("compButton").onclick = function() {composeNewMail()};
 		function composeNewMail(){
 			document.getElementById("compButton").innerHTML = "New Mail!";
-			//document.getElementById("compButton").style.border = "3px solid white";
-		}
-
-// click on Sender to show Body
-		var classOfSubjects = [];
-		classOfSubjects = document.getElementsByClassName("clSubject");
-		console.log("class of subject",classOfSubjects);
-		for (var i = 0; i < classOfSubjects.length; i++) {
-		 	classOfSubjects[i].addEventListener("click",showEmailBody);
-		}
-	
-		function showEmailBody(){
-			var showBody = this.querySelectorAll('.clBody')[0];
-			console.log("showbody by querySelectorAll",showBody);
-			  if(showBody.style.display === 'none'){
-			    showBody.style.display = "block";
-			  }else{
-			    showBody.style.display = "none";
-			  }
-		}
-// generate new message and push it to the geemails array
-		
-//		function addNewMessage() {
-// 		  	var newMessage = {};
-//  		  	newMessage = getNewMessage();
-//  		  	window.geemails.push(newMessage);
-///		}
-//		setInterval(addNewMessage,3000);
-		function addNewMessage() {
-			var newMessage = getNewMessage();
-			console.log("new message", newMessage);
-			window.geemails.push(newMessage);
-			console.log("window.geemails", window.geemails);
-		}
-		var myVar = setInterval(addNewMessage, 2000);
-
-		document.getElementById("stop").onclick = stopAddingEmail;
-		
-		function stopAddingEmail() {
 			clearInterval(myVar);
 		}
 
 
 
-        
-      };
+       
+}; // eof window.onload
+
     </script>
     <title> Gee Mail</title>
 	</head>
@@ -188,8 +195,6 @@ console.log("window.geemails", window.geemails);
 			</div> <!-- eof header -->
 			
 			<div id="actionHeader">	
-					<!-- <button onclick="clearInterval(myVar)">Stop time</button> -->
-					 <button id="stop">Stop setInterval</button>
 			</div> <!-- eof actionHeadLine -->
 
 			<div id="content">

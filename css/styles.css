@@ -70,6 +70,7 @@ h1 {
 }
 .clBody {
 	display: none;
+	padding: 20px;
 }
 .clSender, .clSubject, .clDate {
 	display: table-cell;
@@ -83,6 +84,7 @@ h1 {
 }
 .clSubject {
 	width: 300px;
+	color: black;
 }
 .clDate {
 	/*background-color: lightblue;*/
